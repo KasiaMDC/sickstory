@@ -1,7 +1,7 @@
 package com.kasia.sickstory.user;
 import com.kasia.sickstory.patient.Patient;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

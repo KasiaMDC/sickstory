@@ -2,9 +2,9 @@ package com.kasia.sickstory.patient;
 
 import com.kasia.sickstory.sickness.Sickness;
 import com.kasia.sickstory.user.User;
-import javax.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

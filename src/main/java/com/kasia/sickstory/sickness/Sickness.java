@@ -2,7 +2,7 @@ package com.kasia.sickstory.sickness;
 
 import com.kasia.sickstory.patient.Patient;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -18,7 +18,7 @@ public class Sickness {
     LocalDate endDate;
     private String symptoms;
     @Column (name = "doctor_appointment")
-    private int doctorAppointment;
+    private boolean doctorAppointment;
     @Column (name = "file_with_recommendations")
     private byte[] fileWithRecommendations;
     @Column (name = "comments_to_the_doc_appointment")
@@ -69,11 +69,11 @@ public class Sickness {
         this.symptoms = symptoms;
     }
 
-    public int getDoctorAppointment() {
+    public boolean getDoctorAppointment() {
         return doctorAppointment;
     }
 
-    public void setDoctorAppointment(int doctorAppointment) {
+    public void setDoctorAppointment(boolean doctorAppointment) {
         this.doctorAppointment = doctorAppointment;
     }
 
