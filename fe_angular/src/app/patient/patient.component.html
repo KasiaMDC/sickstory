@@ -1,0 +1,8 @@
+
+<button class="button patient-collapsible" (click)="toggleExpanded()">
+  {{ patient.name }}
+</button>
+
+<div class="patient-content" [ngClass]="{'expanded' : expanded}">
+  <p>{{ patient.name }}</p>
+</div>
