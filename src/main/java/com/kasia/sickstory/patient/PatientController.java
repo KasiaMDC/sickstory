@@ -1,5 +1,6 @@
 package com.kasia.sickstory.patient;
 
+import jakarta.annotation.Resource;
 import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ public class PatientController {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Resource
     private PatientDao patientDao;
 
     @PostMapping("/patient/add")

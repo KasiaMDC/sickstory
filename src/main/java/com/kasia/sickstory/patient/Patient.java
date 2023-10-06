@@ -22,7 +22,7 @@ public class Patient {
     private String lastName;
     @ManyToOne
     private User user;
-    @OneToMany
+    @OneToMany(mappedBy = "patient")
     private Set<Sickness> sicknesses = new HashSet<>();
 
     public void setId(long id) {

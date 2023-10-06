@@ -1,5 +1,13 @@
 # how to install nodejs
 
+In Mac OS X:
+
+```brew install node@16```
+```export PATH="/usr/local/opt/node@16/bin/:$PATH"```
+```npm link @angular/cli```
+
+# Setup the project
+
 Do this only once:
 
 ```npm install```

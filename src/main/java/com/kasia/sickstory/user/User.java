@@ -20,7 +20,7 @@ public class User {
     private String password;
 
     private String email;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<Patient> patients = new HashSet<>();
 
     public Set<Patient> getPatientSet() {
