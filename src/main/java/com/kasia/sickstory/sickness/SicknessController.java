@@ -48,8 +48,7 @@ public class SicknessController {
     }
 
     @PutMapping("/patient/{patientId}/sickness/{sicknessId}")
-    @ResponseBody
-    public Sickness update(@PathVariable long sicknessId,
+    public void update(@PathVariable long sicknessId,
                            @RequestParam (required = false) String name,
                            @RequestParam (required = false) String startDate,
                            @RequestParam (required = false) String endDate,
@@ -59,8 +58,13 @@ public class SicknessController {
                            @RequestParam (required = false) String medicine) {
         Sickness sickness = sicknessDao.findByUid(sicknessId);
         populateSickness(sickness, name, startDate, endDate, symptoms, doctorAppointment, commentsToTheDoctorsAppointment, medicine);
-        sicknessDao.saveSickness(sickness);
-        return sickness;
+        sicknessDao.update(sickness);
+    }
+
+    @DeleteMapping("/patient/{patientId}/sickness/{sicknessId}")
+    public void delete(@PathVariable long sicknessId) {
+        Sickness sickness = sicknessDao.findByUid(sicknessId);
+        sicknessDao.delete(sickness);
     }
 
     private void populateSickness(Sickness sickness, String name, String startDate, String endDate, String symptoms,
@@ -74,6 +78,5 @@ public class SicknessController {
         sickness.setDoctorAppointment(doctorAppointment == 0 ? false : true);
         Optional.ofNullable(commentsToTheDoctorsAppointment).ifPresent(sickness::setCommentsToTheDoctorsAppointment);
         Optional.ofNullable(medicine).ifPresent(sickness::setMedicine);
-        sicknessDao.saveSickness(sickness);
     }
 }
