@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
         @GetMapping
         public String prepareRegistrationPage() {
-            return "/WEB-INF/views/registration-form.jsp";
+            return "registration-form.html";
         }
 
         @PostMapping
