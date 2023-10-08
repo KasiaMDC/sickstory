@@ -11,12 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 public class SecurityConfiguration {
 
     @Resource

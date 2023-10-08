@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientComponent } from './patient/patient.component';
+import { LoginStorageService } from "./services/login-storage.service";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { PatientComponent } from './patient/patient.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: PatientListComponent },
+      { path: '', canActivate: [LoginStorageService], component: PatientListComponent },
+      //{ path: 'login', component: LoginComponent },
     ])
   ],
   declarations: [
