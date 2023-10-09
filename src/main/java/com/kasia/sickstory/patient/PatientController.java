@@ -55,16 +55,17 @@ public class PatientController {
 
     @GetMapping("/patient/{id}")
     @ResponseBody
-    public Patient getPatient(@PathVariable long id) {
+    public PatientPOJO getPatient(@PathVariable long id) {
         Patient patient = patientDao.findById(id);
-        return patient;
+        return patientConverter.convert(patient);
     }
 
     @PutMapping("/patient/{id}")
     @ResponseBody
     public void updatePatient(@PathVariable long id,
                               @RequestParam(required = false) String firstName,
-                              @RequestParam(required = false) String lastName) {
+                              @RequestParam(required = false) String lastName
+                              ) {
         Patient patient = patientDao.findById(id);
         Optional.ofNullable(firstName).ifPresent(patient::setFirstName);
         Optional.ofNullable(lastName).ifPresent(patient::setLastName);

@@ -5,4 +5,9 @@
 
 <div class="patient-content" [ngClass]="{'expanded' : expanded}">
   <p>{{ patient.firstName}} {{patient.lastName }}</p>
+  <button (click)="goToEditPatient()"> Update
+  </button>
+
 </div>
+
+
