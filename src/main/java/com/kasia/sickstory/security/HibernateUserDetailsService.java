@@ -1,5 +1,6 @@
 package com.kasia.sickstory.security;
 
+import com.kasia.sickstory.user.User;
 import com.kasia.sickstory.user.UserDao;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +19,7 @@ public class HibernateUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.kasia.sickstory.user.User user = userDao.findByUsername(username);
+        User user = userDao.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

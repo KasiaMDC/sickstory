@@ -1,8 +1,8 @@
 
 <div class="top-bar-container">
-    <a [routerLink]="['/']">
+    <a [routerLink]="['/']" class="top-bar-title">
         <h1>Sick Story</h1>
     </a>
-  
-    <a class="button fancy-button"><em class="material-icons">shopping_cart</em>Checkout</a>
+
+    <button (click)="logout()">Logout</button>
 </div>
