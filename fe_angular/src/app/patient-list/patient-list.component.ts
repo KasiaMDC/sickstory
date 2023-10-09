@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {LoginStorageService} from "../services/login-storage.service";
 
 //import { products } from '../products';
 
@@ -11,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class PatientListComponent {
   patients: any[] = []; // Initialize array
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private loginStorageService: LoginStorageService) {}
 
   ngOnInit(): void {
     this.fetchPatients();
@@ -19,41 +21,34 @@ export class PatientListComponent {
 
   // Make the API call to fetch patients
   fetchPatients(): void {
-      this.patients = [
-          {
-              id: 1,
-              name: 'John Doe',
-              price: 100,
-              description: 'Regular check-up'
-          },
-          {
-              id: 2,
-              name: 'Alice Smith',
-              price: 150,
-              description: 'Dental cleaning'
-          },
-          {
-              id: 3,
-              name: 'Michael Johnson',
-              price: 200,
-              description: 'Orthopedic consultation'
-          },
-          {
-              id: 4,
-              name: 'Emily Davis',
-              price: 120,
-              description: 'Eye examination'
-          }
-      ];
-    /*this.http.get<any[]>('http://localhost:9002/rest/v1/patients')
-      .subscribe(
-        {
-          next: (data) => {
-            this.patients = data;
-          },
-          error: (error) => {
-            console.error('Error fetching products:', error);
-          }
-        });*/
+      const authenticationHeader: string = this.loginStorageService.getValue()!;
+      const listPatientsUrl: string = 'http://localhost:8080/patient/list';
+
+      // Process the first data or trigger the second fetch based on the first data
+      const customHeaders = {
+          'Authorization': authenticationHeader
+      };
+
+      const fetchConfig: RequestInit = {
+          method: 'GET',
+          headers: new Headers(customHeaders),
+          //credentials: 'include'
+      };
+
+
+      fetch(listPatientsUrl, fetchConfig)
+          .then((response) => {
+              if (!response.ok) {
+                  throw new Error('New patient cannot be created');
+              }
+              return response.json();
+          })
+          .then(data => {
+              // Assign the response (JSON data) to the patients variable
+              this.patients = data;
+          })
+          .catch(error => {
+              console.error('Error fetching patients:', error);
+          });
   }
 }

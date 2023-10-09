@@ -48,4 +48,12 @@ public class Patient {
     public String getLastName() {
         return lastName;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

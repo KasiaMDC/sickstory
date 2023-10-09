@@ -11,6 +11,7 @@ import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientComponent } from './patient/patient.component';
 import { LoginComponent } from './login/login.component';
 import { LoginStorageService } from "./services/login-storage.service";
+import {EditPatientComponent} from "./edit-patient/edit-patient.component";
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { LoginStorageService } from "./services/login-storage.service";
     RouterModule.forRoot([
       { path: '', canActivate: [LoginStorageService], component: PatientListComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'patient', component: EditPatientComponent }
     ])
   ],
   declarations: [
@@ -28,7 +30,8 @@ import { LoginStorageService } from "./services/login-storage.service";
     TopBarComponent,
     PatientComponent,
     PatientListComponent,
-    LoginComponent
+    LoginComponent,
+    EditPatientComponent
   ],
   bootstrap: [
     AppComponent

@@ -34,7 +34,7 @@ public class SecurityConfiguration {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.OPTIONS, "/**")).permitAll()
             .anyRequest().authenticated()
             )
-            //.csrf().disable()
+            .csrf().disable()
             //.cors().disable()
             .httpBasic();
 
@@ -54,9 +54,9 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedOriginPattern("*"); // http://localhost:4201/*
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","PATCH","DELETE","OPTIONS"));
-        configuration.setAllowCredentials(false);
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

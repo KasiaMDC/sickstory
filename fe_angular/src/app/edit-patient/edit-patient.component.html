@@ -1,0 +1,18 @@
+<app-top-bar></app-top-bar>
+
+<h2>Patients</h2>
+
+
+<form (ngSubmit)="save()">
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" [(ngModel)]="firstName" name="firstName" required>
+
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" required>
+
+  <button type="submit">Save</button>
+  <button class="button patient-collapsible" (click)="cancel()">
+    Cancel
+  </button>
+</form>
+
