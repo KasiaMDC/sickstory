@@ -16,6 +16,7 @@ export class PatientComponent {
 
   constructor(
       private router: Router,
+      private loginStorageService: LoginStorageService,
   ) { }
 
   toggleExpanded(): void {
@@ -25,6 +26,32 @@ export class PatientComponent {
   goToEditPatient(): void {
     this.router.navigate(['/patient'], { queryParams: { id: this.patient.id } });
 
+  }
+
+  deletePatient(): void {
+
+    const authenticationHeader: string = this.loginStorageService.getValue()!;
+    const deletePatientUrl: string = `http://localhost:8080/patient/${this.patient.id}`;
+
+    // Process the first data or trigger the second fetch based on the first data
+    const customHeaders = {
+      'Authorization': authenticationHeader
+    };
+
+    const fetchConfig: RequestInit = {
+      method: 'DELETE',
+      headers: new Headers(customHeaders),
+      //credentials: 'include'
+    };
+
+    fetch(deletePatientUrl, fetchConfig)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Could not delete patient');
+          }
+          alert("Patient deleted successfully!");
+          this.router.navigate(['/']);
+        })
   }
 
 }
