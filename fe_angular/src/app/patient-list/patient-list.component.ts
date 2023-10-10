@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {LoginStorageService} from "../services/login-storage.service";
+import {Router} from "@angular/router";
 
 //import { products } from '../products';
 
@@ -13,7 +14,8 @@ export class PatientListComponent {
   patients: any[] = []; // Initialize array
 
   constructor(private http: HttpClient,
-              private loginStorageService: LoginStorageService) {}
+              private loginStorageService: LoginStorageService,
+              private router: Router,) {}
 
   ngOnInit(): void {
     this.fetchPatients();
@@ -51,4 +53,8 @@ export class PatientListComponent {
               console.error('Error fetching patients:', error);
           });
   }
+
+    addPatient(): void {
+        this.router.navigate(['/patient'])
+    }
 }

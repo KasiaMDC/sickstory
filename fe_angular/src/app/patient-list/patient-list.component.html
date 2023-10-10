@@ -2,6 +2,9 @@
 
 <h2>Patients</h2>
 
+
+<button (click)="addPatient()"> Add new Patient
+</button>
 <div *ngFor="let patient of patients" class="patient-container">
   <app-patient [patient]="patient"></app-patient>
 </div>
