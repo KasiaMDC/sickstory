@@ -22,7 +22,7 @@ import {EditPatientComponent} from "./edit-patient/edit-patient.component";
     RouterModule.forRoot([
       { path: '', canActivate: [LoginStorageService], component: PatientListComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'patient', component: EditPatientComponent }
+      { path: 'patient', canActivate: [LoginStorageService], component: EditPatientComponent }
     ])
   ],
   declarations: [
