@@ -9,3 +9,34 @@
     transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
 }
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Style the table header */
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style alternate rows */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Style table header */
+th {
+    background-color: #333;
+    color: white;
+}
+
+
+
+
+
+
+

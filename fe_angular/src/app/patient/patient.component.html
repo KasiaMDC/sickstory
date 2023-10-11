@@ -1,24 +1,40 @@
 
 <button class="button patient-collapsible" (click)="action()">
   {{ patient.firstName}} {{patient.lastName }}
-  <button (click)="goToEditPatient()"> Update
+  <button class="button2" (click)="goToEditPatient()"> Update
   </button>
-  <button (click)="deletePatient()"> Delete
+  <button class="button2" (click)="deletePatient()"> Delete
   </button>
 </button>
 
 <div class="patient-content" [ngClass]="{'expanded' : expanded}">
-  <div *ngFor="let sickness of sicknesses" class="patient-container">
+  <button class="button2" (click)="addSickness()"> Add new Sickness
+  </button>
   <p>
-    {{ sickness.name}} <br>
-    {{ sickness.startDate}}<br>
-    {{ sickness.endDate}}<br>
-    {{ sickness.symptoms}}<br>
-    {{ sickness.commentsToTheDoctorsAppointment}}<br>
-    {{ sickness.medicine}}<br>
-  </p>
-  </div>
-  <br/>nowa linia<br/>
+    <table *ngIf="this.sicknesses.length > 0">
+      <tr>
+        <th>Name</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Symptoms</th>
+        <th>Doctor appointment comments</th>
+        <th>Medicine</th>
+        <th>Action</th>
+      </tr>
+    <tr *ngFor="let sickness of sicknesses" >
+      <td>{{ sickness.name}}</td>
+      <td>{{ sickness.startDate}}</td>
+      <td>{{ sickness.endDate}}</td>
+      <td>{{ sickness.symptoms}}</td>
+      <td>{{ sickness.commentsToTheDoctorsAppointment}}</td>
+      <td>{{ sickness.medicine}}</td>
+      <td><button (click)="goToEditSickness()"> Update
+      </button>
+        <button (click)="deleteSickness()"> Delete
+        </button></td>
+    </tr>
+  </table>
+
 
   <!-- new sickness button-->
 

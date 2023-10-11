@@ -17,3 +17,16 @@
 .expanded {
     max-height: 500px !important;
 }
+.button2 {
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border: 2px solid #333; /* Border style */
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+}

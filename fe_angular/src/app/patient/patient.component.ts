@@ -4,6 +4,7 @@ import {Sickness} from "../domain/sickness";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginStorageService} from "../services/login-storage.service";
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -40,7 +41,6 @@ export class PatientComponent {
             //credentials: 'include'
         };
 
-
         fetch(listSicknessUrl, fetchConfig)
             .then((response) => {
                 if (!response.ok) {
@@ -49,13 +49,15 @@ export class PatientComponent {
                 return response.json();
             })
             .then(data => {
-                // Assign the response (JSON data) to the patients variable
                 this.sicknesses = data;
+                // Assign the response (JSON data) to the patients variable
+
             })
             .catch(error => {
                 console.error('Error fetching sicknesses:', error);
             });
     }
+
 
     action(): void {
         this.toggleExpanded();
@@ -92,5 +94,8 @@ export class PatientComponent {
                 this.router.navigate(['/']);
             })
     }
+    goToEditSickness(): void {}
+    deleteSickness(): void {}
+    addSickness():void{}
 
 }
