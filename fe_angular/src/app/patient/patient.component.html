@@ -11,7 +11,7 @@
   <button class="button2" (click)="addSickness()"> Add new Sickness
   </button>
   <p>
-    <table *ngIf="this.sicknesses.length > 0">
+    <table *ngIf="this.sicknesses.length > 0; else elseBlock">
       <tr>
         <th>Name</th>
         <th>Start date</th>
@@ -28,13 +28,16 @@
       <td>{{ sickness.symptoms}}</td>
       <td>{{ sickness.commentsToTheDoctorsAppointment}}</td>
       <td>{{ sickness.medicine}}</td>
-      <td><button (click)="goToEditSickness()"> Update
-      </button>
-        <button (click)="deleteSickness()"> Delete
-        </button></td>
+      <td>
+        <button (click)="goToEditSickness(sickness)"> Update</button>
+        <button (click)="deleteSickness(sickness)"> Delete</button>
+      </td>
     </tr>
   </table>
-
+  <ng-template #elseBlock>
+    This patient has no sickenesses listed yet.
+    <br>
+  </ng-template>
 
   <!-- new sickness button-->
 

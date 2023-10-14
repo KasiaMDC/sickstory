@@ -12,6 +12,7 @@ import { PatientComponent } from './patient/patient.component';
 import { LoginComponent } from './login/login.component';
 import { LoginStorageService } from "./services/login-storage.service";
 import {EditPatientComponent} from "./edit-patient/edit-patient.component";
+import {EditSicknessComponent} from "./edit-sickness/edit-sickness.component";
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {EditPatientComponent} from "./edit-patient/edit-patient.component";
     RouterModule.forRoot([
       { path: '', canActivate: [LoginStorageService], component: PatientListComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'patient', canActivate: [LoginStorageService], component: EditPatientComponent }
+      { path: 'patient', canActivate: [LoginStorageService], component: EditPatientComponent },
+      { path: 'sickness', canActivate: [LoginStorageService], component: EditSicknessComponent }
     ])
   ],
   declarations: [
@@ -31,7 +33,8 @@ import {EditPatientComponent} from "./edit-patient/edit-patient.component";
     PatientComponent,
     PatientListComponent,
     LoginComponent,
-    EditPatientComponent
+    EditPatientComponent,
+    EditSicknessComponent
   ],
   bootstrap: [
     AppComponent

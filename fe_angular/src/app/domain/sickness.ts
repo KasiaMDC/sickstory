@@ -1,5 +1,5 @@
 export interface Sickness {
-    id: number;
+    uid: number;
     name: string;
     startDate: string;
     endDate: string;

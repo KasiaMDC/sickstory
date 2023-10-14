@@ -1,0 +1,12 @@
+.patient-collapsible {
+    width: 100%;
+}
+  
+.patient-content {
+    padding: 0 18px;
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    display: flex;
+}

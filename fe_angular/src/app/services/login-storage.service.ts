@@ -32,4 +32,19 @@ export class LoginStorageService implements CanActivate {
       return false;
     }
   }
+
+  getFetchConfig(httpMethod: string): RequestInit {
+    const authenticationHeader: string = this.getValue()!;
+
+    const customHeaders = {
+      'Authorization': authenticationHeader
+    };
+
+    const fetchConfig: RequestInit = {
+      method: httpMethod,
+      headers: new Headers(customHeaders),
+      //credentials: 'include'
+    };
+    return fetchConfig;
+  }
 }

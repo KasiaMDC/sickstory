@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PatientComponent {
     @Input() patient!: Patient;
+    @Input() sickness!: Sickness;
     expanded: boolean = false;
     sicknesses: Sickness[] = []; // Initialize array
 
@@ -29,19 +30,8 @@ export class PatientComponent {
 
     getSicknessList(): void {
         const listSicknessUrl: string = `http://localhost:8080/patient/${this.patient.id}/sickness/list`;
-        const authenticationHeader: string = this.loginStorageService.getValue()!;
 
-        const customHeaders = {
-            'Authorization': authenticationHeader
-        };
-
-        const fetchConfig: RequestInit = {
-            method: 'GET',
-            headers: new Headers(customHeaders),
-            //credentials: 'include'
-        };
-
-        fetch(listSicknessUrl, fetchConfig)
+        fetch(listSicknessUrl, this.loginStorageService.getFetchConfig('GET'))
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('List cound not be created');
@@ -70,22 +60,9 @@ export class PatientComponent {
     }
 
     deletePatient(): void {
-
-        const authenticationHeader: string = this.loginStorageService.getValue()!;
         const deletePatientUrl: string = `http://localhost:8080/patient/${this.patient.id}`;
 
-        // Process the first data or trigger the second fetch based on the first data
-        const customHeaders = {
-            'Authorization': authenticationHeader
-        };
-
-        const fetchConfig: RequestInit = {
-            method: 'DELETE',
-            headers: new Headers(customHeaders),
-            //credentials: 'include'
-        };
-
-        fetch(deletePatientUrl, fetchConfig)
+        fetch(deletePatientUrl, this.loginStorageService.getFetchConfig('DELETE'))
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Could not delete patient');
@@ -94,8 +71,22 @@ export class PatientComponent {
                 this.router.navigate(['/']);
             })
     }
-    goToEditSickness(): void {}
-    deleteSickness(): void {}
-    addSickness():void{}
+    goToEditSickness(sickness: Sickness): void {
+        this.router.navigate(['/sickness'], {queryParams: {id: sickness.uid}});
+    }
+    deleteSickness(sickness: Sickness): void {
+        const deleteSicknessUrl: string = `http://localhost:8080/patient/${this.patient.id}/sickness/${sickness.uid}`;
+
+        fetch(deleteSicknessUrl, this.loginStorageService.getFetchConfig('DELETE'))
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Could not delete sickness');
+                }
+                alert("Sickness deleted successfully!");
+                this.router.navigate(['/']);
+            })}
+    addSickness():void{
+        this.router.navigate(['/sickness'])
+    }
 
 }

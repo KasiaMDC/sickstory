@@ -25,21 +25,9 @@ export class EditPatientComponent {
 
     ngOnInit(): void {
         const patientId = this.route.snapshot.queryParamMap.get('id');
-        const authenticationHeader: string = this.loginStorageService.getValue()!;
         const getPatientUrl: string = `http://localhost:8080/patient/${patientId}`;
 
-        // Process the first data or trigger the second fetch based on the first data
-        const customHeaders = {
-            'Authorization': authenticationHeader
-        };
-
-        const fetchConfig: RequestInit = {
-            method: 'GET',
-            headers: new Headers(customHeaders),
-            //credentials: 'include'
-        };
-
-        fetch(getPatientUrl, fetchConfig)
+        fetch(getPatientUrl, this.loginStorageService.getFetchConfig('GET'))
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('error');
@@ -60,21 +48,8 @@ export class EditPatientComponent {
         const newPatientUrl = `http://localhost:8080/patient/add?firstName=${this.firstName}&lastName=${this.lastName}`;
         const updatePatientUrl = `http://localhost:8080/patient/${patientId}?firstName=${this.firstName}&lastName=${this.lastName}`;
 
-        const authenticationHeader: string = this.loginStorageService.getValue()!;
-        const customHeaders = {
-            'Authorization': authenticationHeader
-        };
-
         if (patientId == null) {
-
-            const fetchConfig: RequestInit = {
-                method: 'POST',
-                headers: new Headers(customHeaders),
-                //credentials: 'include'
-            };
-
-
-            fetch(newPatientUrl, fetchConfig)
+            fetch(newPatientUrl, this.loginStorageService.getFetchConfig('POST'))
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error('New patient cannot be created');
@@ -83,14 +58,7 @@ export class EditPatientComponent {
                     this.router.navigate(['/']);
                 })
         } else {
-            const fetchConfig: RequestInit = {
-                method: 'PUT',
-                headers: new Headers(customHeaders),
-                //credentials: 'include'
-            };
-
-
-            fetch(updatePatientUrl, fetchConfig)
+            fetch(updatePatientUrl, this.loginStorageService.getFetchConfig('PUT'))
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error('New patient cannot be created');

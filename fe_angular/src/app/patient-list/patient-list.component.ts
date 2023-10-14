@@ -23,22 +23,9 @@ export class PatientListComponent {
 
   // Make the API call to fetch patients
   fetchPatients(): void {
-      const authenticationHeader: string = this.loginStorageService.getValue()!;
       const listPatientsUrl: string = 'http://localhost:8080/patient/list';
 
-      // Process the first data or trigger the second fetch based on the first data
-      const customHeaders = {
-          'Authorization': authenticationHeader
-      };
-
-      const fetchConfig: RequestInit = {
-          method: 'GET',
-          headers: new Headers(customHeaders),
-          //credentials: 'include'
-      };
-
-
-      fetch(listPatientsUrl, fetchConfig)
+      fetch(listPatientsUrl, this.loginStorageService.getFetchConfig('GET'))
           .then((response) => {
               if (!response.ok) {
                   throw new Error('New patient cannot be created');

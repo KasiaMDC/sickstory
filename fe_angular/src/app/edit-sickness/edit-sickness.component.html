@@ -1,0 +1,32 @@
+<app-top-bar></app-top-bar>
+
+<h2>Sickness</h2>
+
+
+<form (ngSubmit)="save()">
+  <label for="name">Name:</label>
+  <input type="text" id="name" [(ngModel)]="name" name="name" required>
+
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" required>
+
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" required>
+
+  <label for="symptoms">Symptoms:</label>
+  <input type="text" id="symptoms" [(ngModel)]="symptoms" name="symptoms" required>
+
+  <label for="commentsToTheDoctorsAppointment">Comments to the doctor's appointment:</label>
+  <input type="text" id="commentsToTheDoctorsAppointment" [(ngModel)]="commentsToTheDoctorsAppointment" name="commentsToTheDoctorsAppointment">
+
+  <label for="medicine">Medicine:</label>
+  <input type="medicine" id="medicine" [(ngModel)]="medicine" name="medicine">
+
+
+  <button type="submit">Save</button>
+  <button class="button patient-collapsible" (click)="cancel()">
+    Cancel
+  </button>
+
+</form>
+
