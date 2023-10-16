@@ -16,12 +16,11 @@ public class UserController {
 
     @PostMapping("/user/add")
     @ResponseBody
-    public User create(@RequestParam String firstName, @RequestParam String lastName) {
+    public void create(@RequestParam String firstName, @RequestParam String lastName) {
         User user = new User();
         Optional.ofNullable(firstName).ifPresent(user::setFirstName);
         Optional.ofNullable(lastName).ifPresent(user::setLastName);
         userDao.createUser(user);
-        return user;
     }
 
     @GetMapping("/user/{id}")

@@ -8,10 +8,10 @@
   <input type="text" id="name" [(ngModel)]="name" name="name" required>
 
   <label for="startDate">Start Date:</label>
-  <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate" required>
+  <input type="date" id="startDate" [ngModel]="startDate | date:'yyyy-MM-dd'" (ngModelChange)="startDate = $event" name="startDate" required>
 
   <label for="endDate">End Date:</label>
-  <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate" required>
+  <input type="date" id="endDate" [ngModel]="endDate | date:'yyyy-MM-dd'" (ngModelChange)="endDate = $event" name="endDate" required>
 
   <label for="symptoms">Symptoms:</label>
   <input type="text" id="symptoms" [(ngModel)]="symptoms" name="symptoms" required>

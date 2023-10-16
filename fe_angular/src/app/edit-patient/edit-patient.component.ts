@@ -27,18 +27,25 @@ export class EditPatientComponent {
         const patientId = this.route.snapshot.queryParamMap.get('id');
         const getPatientUrl: string = `http://localhost:8080/patient/${patientId}`;
 
-        fetch(getPatientUrl, this.loginStorageService.getFetchConfig('GET'))
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('error');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Assign the response (JSON data) to the patients variable
-                this.firstName = data.firstName;
-                this.lastName = data.lastName;
-            })
+        if (!this.isNewPatientPage()) {
+            fetch(getPatientUrl, this.loginStorageService.getFetchConfig('GET'))
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('error');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Assign the response (JSON data) to the patients variable
+                    this.firstName = data.firstName;
+                    this.lastName = data.lastName;
+                })
+        }
+    }
+
+    isNewPatientPage(): boolean {
+        const patientId = this.route.snapshot.queryParamMap.get('id');
+        return patientId == null;
     }
 
     save(): void {
@@ -48,13 +55,13 @@ export class EditPatientComponent {
         const newPatientUrl = `http://localhost:8080/patient/add?firstName=${this.firstName}&lastName=${this.lastName}`;
         const updatePatientUrl = `http://localhost:8080/patient/${patientId}?firstName=${this.firstName}&lastName=${this.lastName}`;
 
-        if (patientId == null) {
+        if (this.isNewPatientPage()) {
             fetch(newPatientUrl, this.loginStorageService.getFetchConfig('POST'))
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error('New patient cannot be created');
                     }
-                    alert("User created successfully!")
+                    alert("Patient created successfully!")
                     this.router.navigate(['/']);
                 })
         } else {
@@ -63,7 +70,7 @@ export class EditPatientComponent {
                     if (!response.ok) {
                         throw new Error('New patient cannot be created');
                     }
-                    alert("User updated successfully!")
+                    alert("Patient updated successfully!")
                     this.router.navigate(['/']);
                 })
         }

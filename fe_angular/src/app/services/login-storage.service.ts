@@ -33,18 +33,25 @@ export class LoginStorageService implements CanActivate {
     }
   }
 
-  getFetchConfig(httpMethod: string): RequestInit {
+  getFetchConfig(httpMethod: string, requestBody?: string): RequestInit {
     const authenticationHeader: string = this.getValue()!;
 
-    const customHeaders = {
+    const customHeaders: HeadersInit = {
       'Authorization': authenticationHeader
     };
+
+    if (httpMethod !== 'GET') {
+      customHeaders['Content-Type'] = 'application/json';
+    }
 
     const fetchConfig: RequestInit = {
       method: httpMethod,
       headers: new Headers(customHeaders),
       //credentials: 'include'
     };
+    if (requestBody !== undefined) {
+      fetchConfig.body = requestBody;
+    }
     return fetchConfig;
   }
 }

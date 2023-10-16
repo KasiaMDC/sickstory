@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PatientComponent {
     @Input() patient!: Patient;
-    @Input() sickness!: Sickness;
+
     expanded: boolean = false;
     sicknesses: Sickness[] = []; // Initialize array
 
@@ -56,7 +56,6 @@ export class PatientComponent {
 
     goToEditPatient(): void {
         this.router.navigate(['/patient'], {queryParams: {id: this.patient.id}});
-
     }
 
     deletePatient(): void {
@@ -72,7 +71,9 @@ export class PatientComponent {
             })
     }
     goToEditSickness(sickness: Sickness): void {
-        this.router.navigate(['/sickness'], {queryParams: {id: sickness.uid}});
+        this.router.navigate(['/sickness'], {queryParams: {
+            id: sickness.uid,
+            patientId: this.patient.id}});
     }
     deleteSickness(sickness: Sickness): void {
         const deleteSicknessUrl: string = `http://localhost:8080/patient/${this.patient.id}/sickness/${sickness.uid}`;
@@ -84,9 +85,10 @@ export class PatientComponent {
                 }
                 alert("Sickness deleted successfully!");
                 this.router.navigate(['/']);
-            })}
-    addSickness():void{
-        this.router.navigate(['/sickness'])
+            })
     }
 
+    addSickness():void{
+        this.router.navigate(['/sickness'], {queryParams: {patientId: this.patient.id}})
+    }
 }

@@ -39,42 +39,47 @@ public class SicknessController {
 
     @PostMapping("/patient/{patientId}/sickness")
     @ResponseBody
-    public Sickness create(@PathVariable long patientId,
-                           @RequestParam String name,
-                           @RequestParam String startDate,
-                           @RequestParam (required = false) String endDate,
-                           @RequestParam String symptoms,
-                           @RequestParam (required = false) int doctorAppointment,
-                           @RequestParam (required = false) String commentsToTheDoctorsAppointment,
-                           @RequestParam (required = false) String medicine
-                           ) {
-        Sickness sickness = new Sickness();
+    public void create(@PathVariable long patientId,
+                           @RequestBody SicknessPOJO sickness) {
+        /*@RequestParam String name, --->zrobic walidacje na tych required
+        @RequestParam String startDate,
+        @RequestParam (required = false) String endDate,
+        @RequestParam String symptoms,
+        @RequestParam (required = false) int doctorAppointment,
+        @RequestParam (required = false) String commentsToTheDoctorsAppointment,
+        @RequestParam (required = false) String medicine*/
+        Sickness result = new Sickness();
         Patient patient = patientDao.findById(patientId);
-        sickness.setPatient(patient);
-        populateSickness(sickness, name, startDate, endDate, symptoms, doctorAppointment, commentsToTheDoctorsAppointment, medicine);
-        sicknessDao.saveSickness(sickness);
-        return sickness;
+        result.setPatient(patient);
+        populateSickness(result, sickness.name(),
+                sickness.startDate(), sickness.endDate(), sickness.symptoms(), sickness.commentsToTheDoctorsAppointment(), sickness.medicine());
+        sicknessDao.saveSickness(result);
     }
 
-    @PutMapping("/patient/{patientId}/sickness/{sicknessId}")
-    public void update(@PathVariable long sicknessId,
-                           @RequestParam (required = false) String name,
-                           @RequestParam (required = false) String startDate,
-                           @RequestParam (required = false) String endDate,
-                           @RequestParam (required = false)String symptoms,
-                           @RequestParam (required = false) int doctorAppointment,
-                           @RequestParam (required = false) String commentsToTheDoctorsAppointment,
-                           @RequestParam (required = false) String medicine) {
-        Sickness sickness = sicknessDao.findByUid(sicknessId);
-        populateSickness(sickness, name, startDate, endDate, symptoms, doctorAppointment, commentsToTheDoctorsAppointment, medicine);
-        sicknessDao.update(sickness);
+    @PutMapping("/patient/{patientId}/sickness/{sicknessUid}")
+    @ResponseBody
+    public void update(@PathVariable long sicknessUid,
+                       @RequestBody SicknessPOJO sickness) {
+        Sickness result = sicknessDao.findByUid(sicknessUid);
+        populateSickness(result, sickness.name(),
+                sickness.startDate(), sickness.endDate(), sickness.symptoms(), sickness.commentsToTheDoctorsAppointment(), sickness.medicine());
+        sicknessDao.update(result);
     }
 
-    @DeleteMapping("/patient/{patientId}/sickness/{sicknessId}")
-    public void delete(@PathVariable long sicknessId) {
-        Sickness sickness = sicknessDao.findByUid(sicknessId);
+    @DeleteMapping("/patient/{patientId}/sickness/{sicknessUid}")
+    @ResponseBody
+    public void delete(@PathVariable long sicknessUid) {
+        Sickness sickness = sicknessDao.findByUid(sicknessUid);
         sicknessDao.delete(sickness);
     }
+
+    @GetMapping("/patient/{patientId}/sickness/{sicknessUid}")
+    @ResponseBody
+    public SicknessPOJO getSickness(@PathVariable long sicknessUid) {
+        Sickness sickness = sicknessDao.findByUid(sicknessUid);
+        return sicknessConverter.convert(sickness);
+    }
+
     @GetMapping("/patient/{patientId}/sickness/list")
     @ResponseBody
     public List<SicknessPOJO> listSickness(@PathVariable long patientId){
@@ -87,15 +92,13 @@ public class SicknessController {
         return result;
     }
 
-    private void populateSickness(Sickness sickness, String name, String startDate, String endDate, String symptoms,
-                                 int doctorAppointment, String commentsToTheDoctorsAppointment,
+    private void populateSickness(Sickness sickness, String name, String startDate, String endDate, String symptoms, String commentsToTheDoctorsAppointment,
                                  String medicine) {
 
         Optional.ofNullable(name).ifPresent(sickness::setName);
         Optional.ofNullable(startDate).ifPresent(it -> sickness.setStartDate(dateFormatService.convertStringToDate(it)));
         Optional.ofNullable(endDate).ifPresent(it -> sickness.setEndDate(dateFormatService.convertStringToDate(it)));
         Optional.ofNullable(symptoms).ifPresent(sickness::setSymptoms);
-        sickness.setDoctorAppointment(doctorAppointment == 0 ? false : true);
         Optional.ofNullable(commentsToTheDoctorsAppointment).ifPresent(sickness::setCommentsToTheDoctorsAppointment);
         Optional.ofNullable(medicine).ifPresent(sickness::setMedicine);
     }

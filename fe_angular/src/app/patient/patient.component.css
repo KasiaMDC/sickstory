@@ -16,24 +16,20 @@ table {
     margin-bottom: 20px;
 }
 
-/* Style the table header */
 th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-/* Style alternate rows */
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #ffebcd; /* Blanched Almond */
 }
 
-/* Style table header */
 th {
-    background-color: #333;
+    background-color: #ff6347; /* Tomato */
     color: white;
 }
-
 
 
 

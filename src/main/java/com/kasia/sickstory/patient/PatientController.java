@@ -26,7 +26,7 @@ public class PatientController {
 
     @PostMapping("/patient/add")
     @ResponseBody
-    public Patient create(@RequestParam String firstName, @RequestParam String lastName, Authentication authentication) {
+    public void create(@RequestParam String firstName, @RequestParam String lastName, Authentication authentication) {
         Patient patient = new Patient();
         String userName = authentication.getName();
         User user = userDao.findByUsername(userName);
@@ -36,7 +36,6 @@ public class PatientController {
         Optional.ofNullable(lastName).ifPresent(patient::setLastName);
 
         patientDao.savePatient(patient);
-        return patient;
     }
 
     @GetMapping("/patient/list")
