@@ -10,6 +10,12 @@
   <label for="lastName">Last Name:</label>
   <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" required>
 
+  <div *ngIf="this.errorMessage !=null">
+    <br />
+    <span class="red-text">{{errorMessage}}</span>
+  </div>
+
+  <br />
   <button type="submit">Save</button>
   <button class="button patient-collapsible" (click)="cancel()">
     Cancel

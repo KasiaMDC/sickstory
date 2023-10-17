@@ -41,13 +41,6 @@ public class SicknessController {
     @ResponseBody
     public void create(@PathVariable long patientId,
                            @RequestBody SicknessPOJO sickness) {
-        /*@RequestParam String name, --->zrobic walidacje na tych required
-        @RequestParam String startDate,
-        @RequestParam (required = false) String endDate,
-        @RequestParam String symptoms,
-        @RequestParam (required = false) int doctorAppointment,
-        @RequestParam (required = false) String commentsToTheDoctorsAppointment,
-        @RequestParam (required = false) String medicine*/
         Sickness result = new Sickness();
         Patient patient = patientDao.findById(patientId);
         result.setPatient(patient);

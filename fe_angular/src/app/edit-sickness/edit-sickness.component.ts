@@ -22,6 +22,7 @@ export class EditSicknessComponent {
     symptoms?: string;
     commentsToTheDoctorsAppointment?: string;
     medicine?: string;
+    errorMessage?: string;
 
     constructor(
         private http: HttpClient,
@@ -87,32 +88,46 @@ export class EditSicknessComponent {
         const newSicknessUrl = `http://localhost:8080/patient/${params.patientId}/sickness`;
         const updateSicknessUrl = `http://localhost:8080/patient/${params.patientId}/sickness/${params.sicknessId}`;
 
+        const sicknessBody: Sickness = {
+            name: this.name!,
+            startDate: this.formatDate(this.startDate!),
+            endDate: this.formatDate(this.endDate!),
+            symptoms: this.symptoms!,
+            commentsToTheDoctorsAppointment: this.commentsToTheDoctorsAppointment!,
+            medicine: this.medicine!
+        };
+
         if (params.sicknessId == null) {
-            const sicknessBody: Sickness = {
-                name: this.name!,
-                startDate: this.formatDate(this.startDate!),
-                endDate: this.formatDate(this.endDate!),
-                symptoms: this.symptoms!,
-                commentsToTheDoctorsAppointment: this.commentsToTheDoctorsAppointment!,
-                medicine: this.medicine!
-            };
+
             fetch(newSicknessUrl, this.loginStorageService.getFetchConfig('POST', JSON.stringify(sicknessBody)))
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error('New sickness cannot be created');
+                        return response.text().then(errorText => {
+                            throw new Error(errorText);
+                        });
                     }
                     alert("Sickness created successfully!")
                     this.router.navigate(['/']);
+                    return Promise.resolve();
                 })
+                .catch((error) => {
+                    this.errorMessage = error.message;
+                });
         } else {
-            fetch(updateSicknessUrl, this.loginStorageService.getFetchConfig('PUT'))
+            fetch(updateSicknessUrl, this.loginStorageService.getFetchConfig('PUT', JSON.stringify(sicknessBody)))
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error('Sickness cannot be updated');
+                        return response.text().then(errorText => {
+                            throw new Error(errorText);
+                        });
                     }
-                    alert("Sickness updated successfully!")
+                    alert("Sickness updated successfully!");
                     this.router.navigate(['/']);
+                    return Promise.resolve();
                 })
+                .catch((error) => {
+                    this.errorMessage = error.message;
+                });
         }
     }
 

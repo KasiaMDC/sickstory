@@ -2,6 +2,9 @@ package com.kasia.sickstory.user;
 import com.kasia.sickstory.patient.Patient;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,6 +15,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank
     @Column(unique = true, nullable = false)
     private String username;
     @Column(name = "first_name")
@@ -19,9 +24,11 @@ public class User {
 
     @Column(name = "last_name")
     private String lastName;
+    @NotBlank
     @Column(nullable = false)
     private String password;
 
+    @NotNull
     @Column(nullable = false)
     private Boolean active;
     @OneToMany(mappedBy = "user")

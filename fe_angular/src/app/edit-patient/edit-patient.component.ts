@@ -13,6 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 export class EditPatientComponent {
     firstName?: string;
     lastName?: string;
+    errorMessage?: string;
 
     constructor(
         private http: HttpClient,
@@ -69,18 +70,24 @@ export class EditPatientComponent {
                     this.router.navigate(['/']);
                     return Promise.resolve();
                 })
-                .catch(function (error) {
-                    console.log(error.message);
+                .catch((error) => {
+                    this.errorMessage = error.message;
                 });
         } else {
             fetch(updatePatientUrl, this.loginStorageService.getFetchConfig('PUT'))
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error('New patient cannot be created');
+                        return response.text().then(errorText => {
+                        throw new Error(errorText);
+                    });
                     }
                     alert("Patient updated successfully!")
                     this.router.navigate(['/']);
+                    return Promise.resolve();
                 })
+                .catch((error) => {
+                    this.errorMessage = error.message;
+                });
         }
     }
 

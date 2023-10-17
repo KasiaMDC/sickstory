@@ -3,7 +3,9 @@ package com.kasia.sickstory.sickness;
 import com.kasia.sickstory.patient.Patient;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -15,13 +17,18 @@ public class Sickness {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long uid;
 
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 50)
     private String name;
+
+    @PastOrPresent
     @Column (name = "start_date")
     LocalDate startDate;
+
     @Column (name = "end_date")
     LocalDate endDate;
+
+    @NotBlank
     private String symptoms;
     @Column (name = "doctor_appointment")
     private boolean doctorAppointment;

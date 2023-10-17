@@ -22,6 +22,12 @@
   <label for="medicine">Medicine:</label>
   <input type="medicine" id="medicine" [(ngModel)]="medicine" name="medicine">
 
+  <div *ngIf="this.errorMessage !=null">
+    <br />
+    <span class="red-text">{{errorMessage}}</span>
+  </div>
+
+  <br />
 
   <button type="submit">Save</button>
   <button class="button patient-collapsible" (click)="cancel()">
