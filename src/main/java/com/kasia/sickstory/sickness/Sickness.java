@@ -3,6 +3,9 @@ package com.kasia.sickstory.sickness;
 import com.kasia.sickstory.patient.Patient;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 @Entity
@@ -11,6 +14,9 @@ public class Sickness {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long uid;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     private String name;
     @Column (name = "start_date")
     LocalDate startDate;

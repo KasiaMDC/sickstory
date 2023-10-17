@@ -50,20 +50,28 @@ export class EditPatientComponent {
 
     save(): void {
         const patientId = this.route.snapshot.queryParamMap.get('id');
+        const firstName = this.firstName !== undefined ? this.firstName : "";
+        const lastName = this.lastName !== undefined ? this.lastName : "";
 
         //const hashedPassword = this.password;//this.md5Service.generateMd5Hash(this.password);
-        const newPatientUrl = `http://localhost:8080/patient/add?firstName=${this.firstName}&lastName=${this.lastName}`;
-        const updatePatientUrl = `http://localhost:8080/patient/${patientId}?firstName=${this.firstName}&lastName=${this.lastName}`;
+        const newPatientUrl = `http://localhost:8080/patient/add?firstName=${firstName}&lastName=${lastName}`;
+        const updatePatientUrl = `http://localhost:8080/patient/${patientId}?firstName=${firstName}&lastName=${lastName}`;
 
         if (this.isNewPatientPage()) {
             fetch(newPatientUrl, this.loginStorageService.getFetchConfig('POST'))
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error('New patient cannot be created');
+                        return response.text().then(errorText => {
+                            throw new Error(errorText);
+                        });
                     }
                     alert("Patient created successfully!")
                     this.router.navigate(['/']);
+                    return Promise.resolve();
                 })
+                .catch(function (error) {
+                    console.log(error.message);
+                });
         } else {
             fetch(updatePatientUrl, this.loginStorageService.getFetchConfig('PUT'))
                 .then((response) => {

@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 
 interface EditSicknessQueryParams {
     patientId?: string | null;
-    sicknessUid?: string | null;
+    sicknessId?: string | null;
 }
 
 @Component({
@@ -36,14 +36,14 @@ export class EditSicknessComponent {
 
     getQueryParams(): EditSicknessQueryParams {
         return {
-            sicknessUid: this.route.snapshot.queryParamMap.get('uid'),
+            sicknessId: this.route.snapshot.queryParamMap.get('id'),
             patientId: this.route.snapshot.queryParamMap.get('patientId')
         };
     }
 
     ngOnInit(): void {
         const params: EditSicknessQueryParams = this.getQueryParams();
-        const getPatientUrl: string = `http://localhost:8080/patient/${params.patientId}/sickness/${params.sicknessUid}`;
+        const getPatientUrl: string = `http://localhost:8080/patient/${params.patientId}/sickness/${params.sicknessId}`;
 
         if (!this.isNewSicknessPage()) {
             fetch(getPatientUrl, this.loginStorageService.getFetchConfig('GET'))
@@ -66,8 +66,7 @@ export class EditSicknessComponent {
     }
 
     isNewSicknessPage(): boolean {
-        const sicknessUid = this.route.snapshot.queryParamMap.get('uid');
-        return sicknessUid == null;
+        return this.getQueryParams().sicknessId == null;
     }
 
     formatDate(date: Date): string {
@@ -86,9 +85,9 @@ export class EditSicknessComponent {
 
         //const hashedPassword = this.password;//this.md5Service.generateMd5Hash(this.password);
         const newSicknessUrl = `http://localhost:8080/patient/${params.patientId}/sickness`;
-        const updateSicknessUrl = `http://localhost:8080/patient/${params.patientId}/sickness/${params.sicknessUid}`;
+        const updateSicknessUrl = `http://localhost:8080/patient/${params.patientId}/sickness/${params.sicknessId}`;
 
-        if (params.sicknessUid == null) {
+        if (params.sicknessId == null) {
             const sicknessBody: Sickness = {
                 name: this.name!,
                 startDate: this.formatDate(this.startDate!),

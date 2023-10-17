@@ -5,6 +5,9 @@ import com.kasia.sickstory.user.User;
 //import jakarta.validation.constraints.NotNull;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,9 +18,12 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "first_name")
     private String firstName;
-
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "last_name")
     private String lastName;
     @ManyToOne

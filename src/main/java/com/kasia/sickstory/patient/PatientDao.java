@@ -16,8 +16,10 @@ public class PatientDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     public void savePatient(Patient patient) {
-        entityManager.persist(patient); }
+        entityManager.persist(patient);
+    }
 
     public Patient findById(long id) {
         return entityManager.find(Patient.class, id);

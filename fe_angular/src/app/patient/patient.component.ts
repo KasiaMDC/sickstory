@@ -70,11 +70,13 @@ export class PatientComponent {
                 this.router.navigate(['/']);
             })
     }
+
     goToEditSickness(sickness: Sickness): void {
         this.router.navigate(['/sickness'], {queryParams: {
             id: sickness.uid,
             patientId: this.patient.id}});
     }
+
     deleteSickness(sickness: Sickness): void {
         const deleteSicknessUrl: string = `http://localhost:8080/patient/${this.patient.id}/sickness/${sickness.uid}`;
 
