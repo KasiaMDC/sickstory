@@ -20,7 +20,7 @@ public class LoginController {
     }
 
     /* This request is used by the frontend to check if the login was successful
-    * */
+     * */
     @GetMapping("/testlogin")
     @CrossOrigin
     public void testLogin() {

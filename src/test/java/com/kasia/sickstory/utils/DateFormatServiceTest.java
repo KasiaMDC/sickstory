@@ -23,8 +23,7 @@ class DateFormatServiceTest {
 
         String result = dateFormatService.convertDateToString(sourceDate);
 
-        assertEquals("18-10-2023",result);
-
+        assertEquals("18-10-2023", result);
 
 
     }
@@ -39,7 +38,7 @@ class DateFormatServiceTest {
         LocalDate result = dateFormatService.convertStringToDate(sourceDate);
 
         //then
-        assertEquals(LocalDate.of(2023,03,22),result);
+        assertEquals(LocalDate.of(2023, 03, 22), result);
 
     }
 }

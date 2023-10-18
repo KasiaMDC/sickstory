@@ -15,8 +15,10 @@ public class UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     public void createUser(User user) {
-        entityManager.persist(user); }
+        entityManager.persist(user);
+    }
 
     public User findById(long id) {
         return entityManager.find(User.class, id);

@@ -18,8 +18,10 @@ public class SicknessDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     public void saveSickness(Sickness sickness) {
-        entityManager.persist(sickness); }
+        entityManager.persist(sickness);
+    }
 
 
     public Sickness findByUid(long uid) {
@@ -29,7 +31,8 @@ public class SicknessDao {
     public void update(Sickness sickness) {
         entityManager.merge(sickness);
     }
-    public List<Sickness> findAll(Patient patient){
+
+    public List<Sickness> findAll(Patient patient) {
         TypedQuery<Sickness> query = entityManager.createQuery("SELECT s FROM Sickness s where s.patient=:patient", Sickness.class);
         query.setParameter("patient", patient);
         return query.getResultList();

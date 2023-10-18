@@ -40,13 +40,13 @@ public class PatientController {
 
     @GetMapping("/patient/list")
     @ResponseBody
-    public List<PatientPOJO> listPatients(Authentication authentication){
+    public List<PatientPOJO> listPatients(Authentication authentication) {
         String userName = authentication.getName();
         User user = userDao.findByUsername(userName);
 
         List<Patient> patients = patientDao.findAll(user);
         List<PatientPOJO> result = new ArrayList<>();
-        for (Patient patient :patients) {
+        for (Patient patient : patients) {
             result.add(patientConverter.convert(patient));
         }
         return result;
@@ -64,7 +64,7 @@ public class PatientController {
     public void updatePatient(@PathVariable long id,
                               @RequestParam(required = false) String firstName,
                               @RequestParam(required = false) String lastName
-                              ) {
+    ) {
         Patient patient = patientDao.findById(id);
         Optional.ofNullable(firstName).ifPresent(patient::setFirstName);
         Optional.ofNullable(lastName).ifPresent(patient::setLastName);

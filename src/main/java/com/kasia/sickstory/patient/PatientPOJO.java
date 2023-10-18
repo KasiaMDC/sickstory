@@ -5,7 +5,6 @@ import com.kasia.sickstory.user.User;
 
 import java.util.Set;
 
-public record PatientPOJO(long id, String firstName, String lastName)
-{
+public record PatientPOJO(long id, String firstName, String lastName) {
 
 }

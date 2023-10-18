@@ -22,19 +22,19 @@ public class Sickness {
     private String name;
 
     @PastOrPresent
-    @Column (name = "start_date")
+    @Column(name = "start_date")
     LocalDate startDate;
 
-    @Column (name = "end_date")
+    @Column(name = "end_date")
     LocalDate endDate;
 
     @NotBlank
     private String symptoms;
-    @Column (name = "doctor_appointment")
+    @Column(name = "doctor_appointment")
     private boolean doctorAppointment;
-    @Column (name = "file_with_recommendations")
+    @Column(name = "file_with_recommendations")
     private byte[] fileWithRecommendations;
-    @Column (name = "comments_to_the_doc_appointment")
+    @Column(name = "comments_to_the_doc_appointment")
     private String commentsToTheDoctorsAppointment;
 
     private String medicine;
@@ -46,6 +46,7 @@ public class Sickness {
     public long getUid() {
         return uid;
     }
+
     public String getName() {
         return name;
     }
